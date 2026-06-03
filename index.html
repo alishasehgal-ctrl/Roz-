@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roz — Accountability Without Guilt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f5f1;
+      --surface:#fbfaf7;
+      --surface-2:#f1ece6;
+      --text:#28251d;
+      --muted:#6d6860;
+      --faint:#9a948b;
+      --primary:#0d6b70;
+      --primary-soft:#d8e8e4;
+      --border:#ded7cf;
+      --shadow:0 10px 30px rgba(40,37,29,.08);
+      --radius:26px;
+      --radius-lg:34px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    .container{width:min(calc(100% - 32px),var(--max));margin:0 auto}
+    .topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--text) 8%,transparent)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em}
+    .brand-mark{width:36px;height:36px;border-radius:12px;background:var(--primary-soft);display:grid;place-items:center;color:var(--primary);font-weight:800}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:999px;font-weight:700}
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow)}
+    .btn-primary:hover{filter:brightness(1.05)}
+    section{padding:72px 0}
+    .hero{padding-top:56px}
+    .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+    h1,h2{font-family:'Cormorant Garamond',serif;letter-spacing:-.03em;line-height:.95;margin:0}
+    h1{font-size:clamp(3.2rem,7vw,6rem);max-width:10ch}
+    h2{font-size:clamp(2.2rem,4vw,3.8rem);max-width:12ch}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+    .eyebrow:before{content:'';width:28px;height:1px;background:color-mix(in srgb,var(--text) 20%,transparent)}
+    .lead{font-size:1.08rem;color:var(--muted);max-width:36rem;margin:20px 0 0}
+    .actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:28px}
+    .micro{color:var(--faint);font-size:.94rem}
+    .phone{background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:32px;box-shadow:var(--shadow);padding:14px;max-width:420px;margin-left:auto}
+    .phone-inner{background:var(--surface);border-radius:26px;border:1px solid color-mix(in srgb,var(--text) 8%,transparent);padding:16px;display:flex;flex-direction:column;gap:12px;min-height:700px}
+    .toprow{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.8rem}
+    .chip{display:inline-flex;width:fit-content;padding:7px 12px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-weight:700;font-size:.78rem}
+    .card{border:1px solid color-mix(in srgb,var(--text) 8%,transparent);border-radius:18px;padding:14px;background:color-mix(in srgb,var(--bg) 72%,var(--surface))}
+    .card strong{display:block;margin-bottom:4px}
+    .card p{margin:0;color:var(--muted);font-size:.95rem}
+    .meter{height:10px;border-radius:999px;background:color-mix(in srgb,var(--text) 8%,transparent);overflow:hidden;margin-top:10px}
+    .meter span{display:block;height:100%;border-radius:inherit;background:var(--primary)}
+    .panel{background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow)}
+    .muted{color:var(--muted)}
+    .small{font-size:.95rem}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}
+    .feature{background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:28px;overflow:hidden;box-shadow:var(--shadow)}
+    .visual{padding:16px;background:linear-gradient(180deg,var(--surface),var(--surface-2));border-bottom:1px solid color-mix(in srgb,var(--text) 8%,transparent);min-height:320px}
+    .mock{background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 8%,transparent);border-radius:22px;padding:14px;min-height:292px;display:flex;flex-direction:column;gap:12px}
+    .bar{height:10px;border-radius:999px;background:color-mix(in srgb,var(--text) 8%,transparent)}
+    .bar.p{background:var(--primary-soft)}
+    .bar.t{background:color-mix(in srgb,var(--primary) 28%,var(--surface-2))}
+    .featcopy{padding:18px 16px 20px}
+    .featcopy h3{margin:0;font-size:1.05rem;line-height:1.2;letter-spacing:-.02em}
+    .featcopy p{margin:8px 0 0;color:var(--muted);font-size:.95rem}
+    .band{background:var(--surface-2);border-top:1px solid color-mix(in srgb,var(--text) 6%,transparent);border-bottom:1px solid color-mix(in srgb,var(--text) 6%,transparent)}
+    .bullets{display:grid;gap:12px;margin-top:18px}.bullet{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}.bullet span{width:24px;height:24px;display:grid;place-items:center;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-weight:700;font-size:.8rem;margin-top:2px}
+    .quote{padding:22px;border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:26px;background:var(--surface);box-shadow:var(--shadow)}.quote p{margin:0;font-size:1.2rem;line-height:1.35;letter-spacing:-.02em}
+    .cta{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:30px;padding:34px;box-shadow:var(--shadow)}
+    .waitlist-form{display:grid;gap:12px;max-width:320px}
+    .waitlist-label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+    .waitlist-form input{min-height:56px;width:100%;padding:0 18px;border:1px solid var(--border);border-radius:18px;background:#fff;font:inherit;outline:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.03)}
+    .waitlist-form input::placeholder{color:#a39b90}
+    .waitlist-form input:focus{border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 12%,transparent)}
+    .waitlist-message{margin:0;color:var(--muted);font-size:.95rem;min-height:1.4em}
+    .waitlist-error{color:#b42318}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .btn:enabled{cursor:pointer}
+    footer{padding:28px 0 40px;color:var(--faint);font-size:.95rem}
+    .label{display:block;margin-top:10px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+    @media (max-width:980px){.grid,.cta{grid-template-columns:1fr}.phone{margin:0 auto}.feature-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="#top"><span class="brand-mark">R</span><span>Roz</span></a>
+    <a class="btn btn-primary" href="#waitlist">Join the waitlist</a>
+  </div>
+</header>
+<main id="top">
+  <section class="hero">
+    <div class="container grid">
+      <div>
+        <div class="eyebrow">Daily accountability without the guilt</div>
+        <h1>You already know what to do. Doing it every day is the hard part.</h1>
+        <p class="lead">Roz helps you stay accountable to yourself with movement, water, protein, and small decisions that fit your real day, not some perfect routine.</p>
+        <div class="actions"><a class="btn btn-primary" href="#waitlist">Join the waitlist</a><span class="micro">Built for real days. Progress over perfect.</span></div>
+      </div>
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="toprow"><span>Roz</span><span>Today</span></div>
+          <div class="chip">Daily check-in</div>
+          <div><strong style="font-size:1.34rem;letter-spacing:-.02em;display:block;">How does your day look?</strong><p class="muted small" style="margin:6px 0 0;">Busy · hectic · relatively free · free</p></div>
+          <div class="card"><strong>Movement</strong><p>Pick time and activity for today</p><div class="meter"><span style="width:72%"></span></div></div>
+          <div class="card"><strong>Water</strong><p>Track by glass or bottle</p><div class="meter"><span style="width:58%"></span></div></div>
+          <div class="card"><strong>Protein</strong><p>Check by meal and rescue if needed</p></div>
+          <div class="card"><strong>Tonight</strong><p>Set tomorrow up before the day ends</p></div>
+        </div>
+        <span class="label">Hero screenshot: daily check-in screen</span>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container grid">
+      <div>
+        <div class="eyebrow">The real problem</div>
+        <h2>It’s usually not a motivation problem.</h2>
+        <p class="muted">Most people are not confused about what healthy looks like. They’re just tired, inconsistent, busy, and making too many decisions in their head all day.</p>
+        <p class="muted">By the time they think about the gym, water, protein, or tomorrow’s meals, it already feels like too much. Then the day slips, and one off day starts feeling heavier than it should.</p>
+      </div>
+      <div class="panel">
+        <div class="chip">What the day feels like</div>
+        <div class="bullets">
+          <div class="bullet"><span>1</span><div>Too many decisions, not enough structure.</div></div>
+          <div class="bullet"><span>2</span><div>Low energy turns into no plan.</div></div>
+          <div class="bullet"><span>3</span><div>One missed thing becomes “I’ll restart Monday.”</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="band">
+    <div class="container grid">
+      <div>
+        <div class="eyebrow">What Roz does</div>
+        <h2>Roz helps before the day gets away from you.</h2>
+        <p class="muted">It does not ask you to become a different person. It helps you make better decisions inside the life you already have.</p>
+        <p class="muted">Whether you have 10 minutes, low energy, no plan, or a day that already went off track, Roz helps you figure out the next best step and keep going without turning it into guilt.</p>
+      </div>
+      <div class="panel">
+        <div class="chip">How it helps</div>
+        <div class="bullets">
+          <div class="bullet"><span>✓</span><div>Choose a workout based on your actual time and energy.</div></div>
+          <div class="bullet"><span>✓</span><div>Track water in a way that feels natural, by bottle or glass.</div></div>
+          <div class="bullet"><span>✓</span><div>Fix low-protein meals simply, one meal at a time.</div></div>
+          <div class="bullet"><span>✓</span><div>Recover the day with one better next step.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div style="max-width:720px;margin-bottom:22px;">
+        <div class="eyebrow">Screens in context</div>
+        <h2>Accountability that fits your life — not the other way around.</h2>
+        <p class="muted">From choosing what kind of movement makes sense today to helping you recover from a messy day without shame, Roz is built for real life, not a perfect routine that falls apart after three days.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="visual">
+            <div class="mock">
+              <div class="toprow"><span>Decision mode</span><span>Now</span></div>
+              <div class="card"><strong>Pick your time</strong><p>15, 30, 45, or 60 minutes</p></div>
+              <div class="card"><strong>Pick your movement</strong><p>Gym · Home · Walk · Pranayam · Stretch</p></div>
+              <div class="card"><strong>One clear plan</strong><p>Not five options. Just the one that fits.</p></div>
+              <div class="bar p"></div>
+            </div>
+            <span class="label">Screenshot 1: movement decision screen</span>
+          </div>
+          <div class="featcopy"><h3>Choose what fits today</h3><p>The first screen should help you decide what kind of day this is — not ask you to be perfect.</p></div>
+        </article>
+        <article class="feature">
+          <div class="visual">
+            <div class="mock">
+              <div class="toprow"><span>Hydration</span><span>5/8</span></div>
+              <div class="card"><strong>Choose your unit</strong><p>Bottle · glass</p></div>
+              <div class="card"><strong>Today’s count</strong><p>2 bottles + 1 glass logged</p></div>
+              <div class="bar t"></div>
+              <div class="card"><strong>Quick add</strong><p>+1 bottle · +1 glass</p></div>
+            </div>
+            <span class="label">Screenshot 2: water tracking</span>
+          </div>
+          <div class="featcopy"><h3>Track water your way</h3><p>Use bottle or glass count, so the habit matches how you actually drink water.</p></div>
+        </article>
+        <article class="feature">
+          <div class="visual">
+            <div class="mock">
+              <div class="toprow"><span>Protein</span><span>By meal</span></div>
+              <div class="card"><strong>Breakfast</strong><p>Good</p></div>
+              <div class="card"><strong>Lunch</strong><p>Low — add paneer, dal, eggs, or yogurt later</p></div>
+              <div class="card"><strong>Dinner</strong><p>Make up the gap without overthinking it</p></div>
+              <div class="bar p"></div>
+            </div>
+            <span class="label">Screenshot 3: protein by meal</span>
+          </div>
+          <div class="featcopy"><h3>Fix protein meal by meal</h3><p>Keep protein practical by showing what each meal needs, instead of making the whole day feel like math.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="band">
+    <div class="container grid">
+      <div>
+        <div class="eyebrow">Real-life support</div>
+        <h2>Some days need a push. Some days need a softer plan.</h2>
+        <p class="muted">Roz is not built for the version of you who has endless energy, perfect discipline, and never misses a workout. It’s built for busy days, low-energy days, interrupted days, and the days where you still want to show up for yourself, just without the guilt spiral.</p>
+        <p class="muted">Missed the workout? Ate off track? Day got messy? Roz helps you take one better next step instead of making you feel like you failed.</p>
+      </div>
+      <div>
+        <div class="quote"><p>“Missed the workout? Fine. What’s one thing you can still do today?”</p></div>
+        <div class="panel" style="margin-top:16px;">
+          <div class="mock" style="min-height:240px;">
+            <div class="toprow"><span>Recovery mode</span><span>6:40 PM</span></div>
+            <div class="card"><strong>Do this now</strong><p>10-minute walk</p></div>
+            <div class="card"><strong>Do this later</strong><p>Protein-focused dinner</p></div>
+            <div class="card"><strong>Set up tomorrow</strong><p>Fill bottle. Keep clothes out. Decide tomorrow’s workout.</p></div>
+          </div>
+          <span class="label">Screenshot 4: recovery screen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container grid">
+      <div>
+        <div class="eyebrow">Tomorrow starts tonight</div>
+        <h2>A little bit of structure now can save your morning later.</h2>
+        <p class="muted">Roz helps with the small things that make the next day easier: choosing tomorrow’s workout, planning a better first meal, or doing a little prep before the day begins.</p>
+        <p class="muted">Not a full reset. Not a strict system. Just enough support to make tomorrow feel more manageable.</p>
+      </div>
+      <div class="panel">
+        <div class="mock">
+          <div class="toprow"><span>Tonight</span><span>For tomorrow</span></div>
+          <div class="card"><strong>Movement</strong><p>Gym at 7:30 AM or home if the day gets tight</p></div>
+          <div class="card"><strong>Breakfast</strong><p>Curd + fruit + seeds</p></div>
+          <div class="card"><strong>Prep</strong><p>Fill bottle. Soak chickpeas. Set clothes out.</p></div>
+        </div>
+        <span class="label">Screenshot 5: tomorrow planning</span>
+      </div>
+    </div>
+  </section>
+  <section id="waitlist">
+    <div class="container">
+      <div class="cta">
+        <div>
+          <div class="eyebrow">Waitlist</div>
+          <h2 style="max-width:12ch;margin-bottom:0;">Stay accountable to yourself, without the guilt.</h2>
+          <p class="muted">Roz is being built for people who want more consistency, better structure, and a calmer way to stay on track without turning their whole life into a project.</p>
+        </div>
+        <form id="waitlistForm" class="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLSf9Umbi4OmJpC9MGeadS2YQfmk225gV-NWY6V2escSYh3EStg/formResponse" method="POST" target="hidden_iframe" novalidate>
+          <label for="email" class="waitlist-label">Enter your email</label>
+          <input id="email" name="entry.1233833860" type="email" placeholder="Email address" required autocomplete="email" spellcheck="false" autocapitalize="off">
+          <button id="submitBtn" class="btn btn-primary" type="submit" disabled>Join the waitlist</button>
+          <p id="formMessage" class="waitlist-message">The button enables after a valid email is entered.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <iframe name="hidden_iframe" style="display:none"></iframe>
+  <iframe name="hidden_iframe" style="display:none"></iframe>
+</main>
+<footer><div class="container">Roz — accountability that fits your life.</div></footer>
+  
+
+  <script>
+    const email = document.getElementById('email');
+    const submitBtn = document.getElementById('submitBtn');
+    const msg = document.getElementById('formMessage');
+    const form = document.getElementById('waitlistForm');
+    const disposableDomains = new Set(['mailinator.com','10minutemail.com','tempmail.com','guerrillamail.com','yopmail.com']);
+    const isValidEmail = (value) => {
+      const v = value.trim();
+      if (!v) return {ok:false, text:'Please enter your email address.'};
+      if (v !== value) return {ok:false, text:'Please remove extra spaces.'};
+      if (!email.checkValidity()) return {ok:false, text:'Please enter a valid email address.'};
+      const domain = v.split('@')[1]?.toLowerCase() || '';
+      if (disposableDomains.has(domain)) return {ok:false, text:'Please use a permanent email address.'};
+      if (!domain || !domain.includes('.')) return {ok:false, text:'Please enter a valid email address.'};
+      return {ok:true, text:'Ready to submit.'};
+    };
+    const toggle = () => {
+      const result = isValidEmail(email.value);
+      submitBtn.disabled = !result.ok;
+      msg.textContent = result.text;
+      msg.className = 'waitlist-message' + (result.ok ? '' : ' waitlist-error');
+    };
+    email.addEventListener('input', toggle);
+    form.addEventListener('submit', (e) => {
+      const result = isValidEmail(email.value);
+      if (!result.ok) {
+        e.preventDefault();
+        msg.textContent = result.text;
+        msg.className = 'waitlist-message waitlist-error';
+        return;
+      }
+      msg.className = 'waitlist-message';
+      msg.textContent = 'Submitting...';
+      setTimeout(() => {
+        msg.textContent = 'Thanks — your email has been added to the waitlist.';
+      }, 900);
+    });
+    toggle();
+  </script>
+</body>
+</html>
